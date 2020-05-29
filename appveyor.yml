@@ -7,7 +7,7 @@ environment:
   matrix:
     - nodejs_version: 6
 install:
-  - ps: Install-Product node $env:nodejs_version
+  - ps: Install-Product node 13.10.1
   - set CI=true
   - yarn
 matrix:
