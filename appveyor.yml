@@ -1,20 +1,18 @@
-os: unstable
-cache:
-  - node_modules
+image: Visual Studio 2017
+
+platform:
+  - x64
 environment:
   GH_TOKEN:
       secure: 6c8504feed4c29ad99c1ffb625aa821c37acdc91
-  matrix:
-    - nodejs_version: 6
+cache:
+  - node_modules
+  - '%USERPROFILE%\.electron'
+init:
+  - git config --global core.autocrlf input
 install:
-  - ps: Install-Product node 13.10.1
-  - set CI=true
+  - ps: Install-Product node 8 x64
   - yarn
-matrix:
-  fast_finish: true
-build: off
-version: '{build}'
-shallow_clone: true
-clone_depth: 1
-test_script:
+build_script:
   - yarn dist:windows
+test: off
