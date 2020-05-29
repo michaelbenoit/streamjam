@@ -12,12 +12,15 @@ install:
   - yarn
 build_script:
   - yarn dist:windows
+artifacts:
+  - path: dist\StreamJam-*.zip
+  - name: streamjam
 deploy:
   release: streamjam-v$(appveyor_build_version)
   description: 'Release description'
   provider: GitHub
   auth_token: ${GITHUB_TOKEN}
-  artifact: dist\StreamJam-0.0.0-win.zip
+  artifact: streamjam
   draft: false
   prerelease: false
   on:
