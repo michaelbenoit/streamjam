@@ -24,7 +24,7 @@ script:
 
 deploy:
   provider: releases
-  api_key: "6cd7f85fe525ca3dcf0ae211be60048c4957e9d0"
+  api_key: "${GITHUB_TOKEN}"
   file: "dist/StreamJam-0.0.0-win.zip"
   skip_cleanup: true
 
