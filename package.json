@@ -1,0 +1,50 @@
+{
+  "name": "electron-webpack-quick-start",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "electron-webpack dev",
+    "compile": "electron-webpack",
+    "dist:linux": "yarn compile && electron-builder build --linux",
+    "dist:windows": "yarn compile && electron-builder build --win --x64",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "rebuild-deps": "electron-builder install-app-deps"
+  },
+  "build": {
+    "productName": "StreamJam",
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "win": {
+      "target": [
+        "zip"
+      ]
+    }
+  },
+  "dependencies": {
+    "@blueprintjs/core": "^3.28.1",
+    "@types/naudiodon": "^2.1.0",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "naudiodon": "^2.2.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "source-map-support": "^0.5.16"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "@typescript-eslint/parser": "^3.0.2",
+    "electron": "8.2.0",
+    "electron-builder": "^22.4.1",
+    "electron-webpack": "^2.8.2",
+    "electron-webpack-eslint": "^6.0.0",
+    "electron-webpack-ts": "^4.0.1",
+    "eslint-plugin-react": "^7.20.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2",
+    "typescript": "^3.9.3",
+    "webpack": "~4.42.1"
+  }
+}
