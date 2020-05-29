@@ -1,9 +1,10 @@
+# based on https://github.com/develar/onshape-desktop-shell/blob/51c8894e2857412dcf2ff4d68f8578bd4653b7a3/.travis.yml
 matrix:
   include:
     - os: osx
       osx_image: xcode10.2
       language: node_js
-      node_js: "10"
+      node_js: "12"
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
@@ -14,7 +15,8 @@ matrix:
 
 cache:
   directories:
-    - node_modules
+    - elm-stuff/build-artifacts
+    - elm-stuff/packages
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
 
@@ -22,18 +24,22 @@ script:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker run --rm \
-        --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
+        --env-file <(env | sed -e 's/\s\s*/,/g' | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
         -v ${PWD}:/project \
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
+        /bin/bash -c "yarn && yarn dist:windows -- -- --linux --win"
     else
-      yarn release
+      yarn && yarn dist:windows
     fi
+
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
+
+notifications:
+  email: false
