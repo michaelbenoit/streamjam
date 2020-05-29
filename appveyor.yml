@@ -20,7 +20,7 @@ deploy:
   description: 'Release description'
   provider: GitHub
   auth_token:
-    secure: 6c8504feed4c29ad99c1ffb625aa821c37acdc91
+    secure: ${GITHUB_TOKEN}
   artifact: dist\StreamJam-0.0.0-win.zip
   draft: false
   prerelease: false
