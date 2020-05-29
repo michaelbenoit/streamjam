@@ -22,6 +22,14 @@ script:
       electronuserland/builder:wine \
       /bin/bash -c "yarn && yarn dist:windows -- -- --linux --win"
 
+deploy:
+  provider: releases
+  api_key: "6cd7f85fe525ca3dcf0ae211be60048c4957e9d0"
+  file: "dist/StreamJam-0.0.0-win.zip"
+  skip_cleanup: true
+  on:
+    tags: true
+
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
